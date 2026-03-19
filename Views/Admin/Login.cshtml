@@ -1,0 +1,60 @@
+﻿@model HotelBooking.Models.AdminLoginViewModel
+@{
+    ViewData["Title"] = "Admin Login";
+    Layout = null;
+}
+
+<link rel="stylesheet" href="~/css/Login.css" />
+
+<div class="login-page">
+    <div class="particles"></div>
+
+    <div id="loginCard" class="login-card">
+        <div class="logo">🏨</div>
+
+        <h2 class="mb-2">Hotel Admin</h2>
+        <p class="text-light mb-4">Login to manage your hotel</p>
+
+        @if (ViewBag.ServerError != null)
+        {
+            <div class="alert alert-danger py-2">
+                @ViewBag.ServerError
+            </div>
+        }
+
+        <form asp-action="Login" method="post" novalidate>
+
+            <!-- USERNAME -->
+            <input asp-for="Username" class="form-control mb-1" placeholder="Username" />
+            <span asp-validation-for="Username" class="text-danger"></span>
+
+            <!-- PASSWORD -->
+            <div class="position-relative mt-3 mb-1">
+                <input asp-for="Password" type="password" id="passwordInput" class="form-control" placeholder="Password" />
+                @* <span class="eye-icon" onclick="togglePassword()">👁</span> *@
+            </div>
+            <span asp-validation-for="Password" class="text-danger"></span>
+
+            <!-- REMEMBER -->
+            <div class="form-check text-start mt-3 mb-3">
+                <input asp-for="RememberMe" class="form-check-input" />
+                <label class="form-check-label text-light">Remember me</label>
+            </div>
+
+            <button class="btn login-btn w-100" type="submit">
+                Login
+            </button>
+        </form>
+    </div>
+</div>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        function togglePassword() {
+            var input = document.getElementById("passwordInput");
+            input.type = input.type === "password" ? "text" : "password";
+        }
+    </script>
+}

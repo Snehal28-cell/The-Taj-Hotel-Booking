@@ -1,0 +1,68 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+    <h2>Payment Options Page Working</h2>
+    <h2>Select Payment Method</h2>
+
+    <form method="post" action="/Booking/PaymentSuccess">
+
+        <input type="hidden" name="RoomId" value="@ViewBag.RoomId" />
+        <input type="hidden" name="RoomType" value="@ViewBag.RoomType" />
+
+        <input type="text" name="CustomerName"
+               class="form-control mb-2"
+               placeholder="Your Name" required>
+
+        <input type="email" name="Email"
+               class="form-control mb-3"
+               placeholder="Email" required>
+
+        <div class="card p-3 mb-2">
+
+            <label>
+                <input type="radio" name="PaymentMethod"
+                       value="Credit Card" required>
+                Credit / Debit Card
+            </label>
+
+        </div>
+
+        <div class="card p-3 mb-2">
+
+            <label>
+                <input type="radio" name="PaymentMethod"
+                       value="UPI">
+                UPI Payment
+            </label>
+
+        </div>
+
+        <div class="card p-3 mb-2">
+
+            <label>
+                <input type="radio" name="PaymentMethod"
+                       value="Net Banking">
+                Net Banking
+            </label>
+
+        </div>
+
+        <div class="card p-3 mb-3">
+
+            <label>
+                <input type="radio" name="PaymentMethod"
+                       value="Pay at Hotel">
+                Pay at Hotel
+            </label>
+
+        </div>
+
+        <button class="btn btn-primary w-100">
+            Pay Now
+        </button>
+
+    </form>
+
+</div>
