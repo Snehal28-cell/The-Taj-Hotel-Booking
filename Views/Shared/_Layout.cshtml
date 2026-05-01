@@ -17,7 +17,16 @@
     <link rel="stylesheet" href="~/HotelBooking.styles.css" asp-append-version="true" />
 </head>
 <body>
+    @using Microsoft.AspNetCore.Http
+    @inject IHttpContextAccessor HttpContextAccessor
 
+    @{
+        var username = HttpContextAccessor.HttpContext.Session.GetString("Username");
+    }
+    @{
+        var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+        var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
+    }
     <header>
         @* <nav class="navbar navbar-expand-lg navbar-dark bg-black shadow-sm">
             <div class="container-fluid">
@@ -102,7 +111,7 @@
                     <ul class="navbar-nav gap-3">
 
                         <li class="nav-item">
-                            <a class="nav-link active"
+                            <a class="nav-link @(currentController == "Home" ? "active" : "")"
                                asp-controller="Home"
                                asp-action="Index">
                                 Home
@@ -110,11 +119,15 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" asp-controller="Rooms" asp-action="Index">Rooms</a>
+                            <a class="nav-link @(currentController == "Rooms" ? "active" : "")"
+                               asp-controller="Rooms"
+                               asp-action="Index">
+                                Rooms
+                            </a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link"
+                            <a class="nav-link @(currentController == "Restaurant" ? "active" : "")"
                                asp-controller="Restaurant"
                                asp-action="Index">
                                 Restaurant
@@ -122,7 +135,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link"
+                            <a class="nav-link @(currentController == "Spa" ? "active" : "")"
                                asp-controller="Spa"
                                asp-action="Index">
                                 Spa
@@ -130,7 +143,8 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link"
+                        <li class="nav-item">
+                            <a class="nav-link @(currentController == "Contact" ? "active" : "")"
                                asp-controller="Contact"
                                asp-action="Index">
                                 Contact
@@ -143,24 +157,28 @@
                 <!-- RIGHT SIDE BUTTONS -->
                 <div class="ms-auto d-flex gap-3">
 
-                    @* <a class="btn btn-login btn-sm"
-                       asp-controller="Account"
-                       asp-action="Login">
-                        Login
-                    </a> *@
-                    <a class="btn btn-login btn-sm" asp-controller="Account" asp-action="Login">
-                        Login
-                    </a>
+                    @if (!string.IsNullOrEmpty(username))
+                    {
+                        <span class="text-white fw-bold p-2">
+                            Welcome, @username
+                        </span>
 
-                    <a class="btn btn-register btn-sm" asp-controller="Account" asp-action="Register">
-                        Register
-                    </a>
+                        <a class="btn btn-danger btn-sm"
+                           asp-controller="Account"
+                           asp-action="Logout">
+                            Logout
+                        </a>
+                    }
+                    else
+                    {
+                        <a class="btn btn-login btn-sm" asp-controller="Account" asp-action="Login">
+                            Login
+                        </a>
 
-                    @* <a class="btn btn-register btn-sm"
-                       asp-controller="Account"
-                       asp-action="Register">
-                        Register
-                    </a> *@
+                        <a class="btn btn-register btn-sm" asp-controller="Account" asp-action="Register">
+                            Register
+                        </a>
+                    }                  
 
                 </div>
 

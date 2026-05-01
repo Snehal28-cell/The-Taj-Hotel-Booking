@@ -1,152 +1,219 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@* @{
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <meta name="viewport" content="width=device-width" />
-        <title>Admin Panel</title>
+﻿@{
+    Layout = null;
+}
 
-        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    </head>
+<!DOCTYPE html>
+<html>
+<head>
 
-    <body>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewData["Title"]</title>
 
-        @await Html.PartialAsync("_AdminNavbar")
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 
-        <div class="container mt-4">
-            @RenderBody()
-        </div>
-        @RenderSection("Scripts", required: false)
-    </body>
-    </html>
-} *@
+    <style>
 
-@{
-    <!DOCTYPE html>
-    <html>
-    <head>
+        /* ================= ROOT THEME ================= */
 
-        <meta name="viewport" content="width=device-width" />
+        body {
+            margin: 0;
+            font-family: "Segoe UI";
+            transition: 0.3s;
+        }
 
-        <title>@ViewData["Title"]</title>
-
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-        <style>
-
-            body {
-                transition: 0.3s;
-                background: #f4f6f9;
+            /* DARK MODE (DEFAULT) */
+            body.dark-mode {
+                background: #0b0f19;
+                color: #e5e7eb;
             }
 
-            .dark-mode {
-                background: #121212;
-                color: white;
+            /* LIGHT MODE */
+            body.light-mode {
+                background: #f5f7fb;
+                color: #111;
             }
 
-            .sidebar {
-                position: fixed;
-                width: 230px;
-                height: 100vh;
-                background: #111;
-                color: white;
-                padding-top: 20px;
-            }
+        /* ================= SIDEBAR ================= */
 
-                .sidebar a {
-                    display: block;
-                    padding: 12px 20px;
-                    color: #bbb;
-                    text-decoration: none;
-                }
+        .sidebar {
+            position: fixed;
+            width: 240px;
+            height: 100vh;
+            padding-top: 20px;
+            transition: 0.3s;
+        }
 
-                    .sidebar a:hover {
-                        background: #222;
-                        color: white;
-                    }
+        /* DARK SIDEBAR */
+        body.dark-mode .sidebar {
+            background: #0f172a;
+            border-right: 1px solid rgba(255,255,255,0.08);
+        }
 
-            .content {
-                margin-left: 230px;
-                padding: 20px;
-            }
+        /* LIGHT SIDEBAR */
+        body.light-mode .sidebar {
+            background: #ffffff;
+            border-right: 1px solid #e5e7eb;
+        }
 
-            .card-dashboard {
-                border: none;
-                border-radius: 12px;
-                box-shadow: 0 4px 12px rgba(0,0,0,.15);
-                transition: 0.3s;
-            }
+        .sidebar h3 {
+            text-align: center;
+            color: #f43f5e;
+            margin-bottom: 20px;
+        }
 
-                .card-dashboard:hover {
-                    transform: translateY(-5px);
-                }
+        .sidebar a {
+            display: block;
+            padding: 12px 18px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
 
-        </style>
+        body.dark-mode .sidebar a {
+            color: #cbd5e1;
+        }
 
-    </head>
+        body.light-mode .sidebar a {
+            color: #333;
+        }
 
-    <body>
+        .sidebar a:hover {
+            background: rgba(99,102,241,0.2);
+        }
 
-        <div class="sidebar">
+        /* ================= CONTENT ================= */
 
-            <h4 class="text-center text-danger mb-4">
-                <i class="fa-solid fa-hotel"></i> Hotel Admin
-            </h4>
+        .content {
+            margin-left: 240px;
+            padding: 20px;
+            transition: 0.3s;
+        }
 
-            <a href="/Admin/Dashboard">
-                <i class="fa-solid fa-chart-line"></i> Dashboard
-            </a>
+        /* ================= TOPBAR ================= */
 
-            <a asp-controller="AdminBookings" asp-action="Index">
-                <i class="fa-solid fa-calendar-check"></i> Bookings
-            </a>
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 18px;
+            border-radius: 14px;
+            transition: 0.3s;
+        }
 
-            <a asp-controller="AdminRestaurant" asp-action="Index">
-                <i class="fa-solid fa-utensils"></i> Restaurant
-            </a>
+        body.dark-mode .topbar {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+        }
 
-            <a asp-controller="AdminSpa" asp-action="Index">
-                <i class="fa-solid fa-spa"></i> Spa
-            </a>
+        body.light-mode .topbar {
+            background: #fff;
+            border: 1px solid #e5e7eb;
+        }
 
-            <a asp-controller="AdminContact" asp-action="Index">
-                <i class="fa-solid fa-chart-pie"></i> Contact
-            </a>
+        /* ================= BUTTONS ================= */
 
-        </div>
+        .btn-theme {
+            background: linear-gradient(135deg,#6366f1,#4f46e5);
+            border: none;
+            color: white;
+            padding: 8px 14px;
+            border-radius: 20px;
+        }
 
-        <div class="content">
+        .btn-user {
+            background: #111827;
+            border: 1px solid rgba(255,255,255,0.1);
+            color: white;
+            padding: 8px 14px;
+            border-radius: 20px;
+        }
 
-            <div class="d-flex justify-content-between mb-3">
+        .btn-logout {
+            background: linear-gradient(135deg,#ef4444,#dc2626);
+            border: none;
+            color: white;
+            padding: 8px 18px;
+            border-radius: 20px;
+        }
 
-                <h5>Admin Dashboard</h5>
+    </style>
 
-                <button class="btn btn-sm btn-dark" onclick="toggleTheme()">
-                    Toggle Theme
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+
+        <h3><i class="fa fa-hotel"></i> Admin</h3>
+
+        <a href="/Admin/Dashboard">Dashboard</a>
+        <a href="/AdminRooms/Index">Rooms</a>
+        <a href="/AdminBookings/Index">Bookings</a>
+        <a href="/AdminSpa/Index">Spa</a>
+        <a href="/AdminRestaurant/Index">Restaurant</a>
+
+    </div>
+
+    <!-- CONTENT -->
+    <div class="content">
+
+        <!-- TOPBAR -->
+        <div class="topbar">
+
+            <h5>@ViewData["Title"]</h5>
+
+            <div class="d-flex gap-2 align-items-center">
+
+                <button class="btn-user">
+                    <i class="fa fa-user"></i> Admin
                 </button>
+
+                <!-- THEME TOGGLE -->
+                <button class="btn-theme" onclick="toggleTheme()">
+                    🌙 Theme
+                </button>
+
+                <form asp-controller="Admin" asp-action="Logout" method="post">
+                    <button class="btn-logout">Logout</button>
+                </form>
 
             </div>
 
-            @RenderBody()
-
         </div>
 
-        @RenderSection("Scripts", required: false)
+        @RenderBody()
 
-        <script>
+    </div>
 
-            function toggleTheme(){
+    @RenderSection("Scripts", required: false)
+
+    <script>
+
+        function toggleTheme() {
+
+            document.body.classList.toggle("light-mode");
             document.body.classList.toggle("dark-mode");
+
+            localStorage.setItem(
+                "theme",
+                document.body.classList.contains("light-mode") ? "light" : "dark"
+            );
+        }
+
+        window.onload = function () {
+
+            let theme = localStorage.getItem("theme");
+
+            if (theme === "light") {
+                document.body.classList.add("light-mode");
+                document.body.classList.remove("dark-mode");
+            } else {
+                document.body.classList.add("dark-mode");
             }
+        }
 
-        </script>
+    </script>
 
-    </body>
-    </html>
-}
+</body>
+</html>

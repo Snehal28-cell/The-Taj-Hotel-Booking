@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using HotelBooking.Data;
 using HotelBooking.Models;
+using System.Linq;
 
 public class BookingController : Controller
 {
@@ -26,12 +27,12 @@ public class BookingController : Controller
         return View();
     }
 
-    // STEP 1: Show payment options
+
+    // ================= PAYMENT PAGE =================
+
     public IActionResult PaymentOptions(int roomId, DateTime checkin, DateTime checkout)
     {
         var room = _context.Rooms.FirstOrDefault(r => r.Id == roomId);
-        ViewBag.RoomId = roomId;
-        ViewBag.RoomType = room.Name;
 
         if (room == null)
         {
@@ -49,17 +50,12 @@ public class BookingController : Controller
         ViewBag.Nights = nights;
         ViewBag.TotalAmount = totalAmount;
 
-        return View();
+        return View("~/Views/Booking/PaymentOptions.cshtml");
     }
 
-    //public IActionResult PaymentOptions(int roomId, DateTime checkin, DateTime checkout)
-    //{
-    //    ViewBag.RoomId = roomId;
 
-    //    return View("~/Views/Booking/PaymentOptions.cshtml");
-    //}
+    // ================= SAVE BOOKING AFTER PAYMENT =================
 
-    // STEP 2: Save booking after payment
     [HttpPost]
     public IActionResult PaymentSuccess(RoomBooking booking)
     {
@@ -68,6 +64,6 @@ public class BookingController : Controller
         _context.RoomBookings.Add(booking);
         _context.SaveChanges();
 
-        return View();
+        return View("~/Views/Booking/PaymentSuccess.cshtml");
     }
 }

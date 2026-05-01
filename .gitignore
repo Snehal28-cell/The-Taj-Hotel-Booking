@@ -7,3 +7,7 @@ obj/
 appsettings.Development.json
 node_modules/
 wwwroot/lib/
+
+# SQL Server files
+*.mdf
+*.ldf

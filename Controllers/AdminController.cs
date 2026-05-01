@@ -53,7 +53,9 @@ namespace HotelBooking.Controllers
                 new RecentBooking { RoomType = "Deluxe", CheckIn = "2026-03-02" },
                 new RecentBooking { RoomType = "Suite", CheckIn = "2026-03-03" }
             }
-        };
+
+
+            };
             return View(model);
         }
 
@@ -64,3 +66,5 @@ namespace HotelBooking.Controllers
         }
     }
 }
+
+

@@ -6,46 +6,51 @@
 //    {
 //        public int Id { get; set; }
 
-//        [Required(ErrorMessage = "Name is required")]
+//        [Required]
 //        public string Name { get; set; }
 
-//        [Required(ErrorMessage = "Email is required")]
-//        [EmailAddress(ErrorMessage = "Enter valid email")]
+//        [Required]
 //        public string Email { get; set; }
 
-//        [Required(ErrorMessage = "Subject is required")]
+//        [Required]
 //        public string Subject { get; set; }
 
-//        [Required(ErrorMessage = "Message is required")]
+//        [Required]
 //        public string Message { get; set; }
-//        public DateTime CreatedAt { get; set; } = DateTime.Now;
 
+//        public DateTime CreatedAt { get; set; } = DateTime.Now;
 //        public string Status { get; set; } = "Pending";
 //    }
 //}
 
-
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HotelBooking.Models
 {
+    [Table("ContactMessages")]
     public class ContactMessage
     {
+        [Key]
         public int Id { get; set; }
 
         [Required]
-        public string Name { get; set; }
+        [StringLength(100)]
+        public string Name { get; set; } = string.Empty;
 
         [Required]
-        public string Email { get; set; }
+        [StringLength(150)]
+        public string Email { get; set; } = string.Empty;
 
         [Required]
-        public string Subject { get; set; }
+        [StringLength(200)]
+        public string Subject { get; set; } = string.Empty;
 
         [Required]
-        public string Message { get; set; }
+        public string Message { get; set; } = string.Empty;
 
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
-        public string Status { get; set; } = "Pending";
+        public DateTime CreatedAt { get; set; }
+
+        public string? Status { get; set; }
     }
 }

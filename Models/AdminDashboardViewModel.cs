@@ -19,3 +19,4 @@ namespace HotelBooking.Models
         public string CheckIn { get; set; }
     }
 }
+
